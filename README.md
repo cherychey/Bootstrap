@@ -18,9 +18,14 @@ Regression under Heavy-Tailed Heteroscedasticity*.
 | `Bank Central Asia Stock Price History.csv` | BBCA daily prices |
 | `Indofood Stock Price History.csv` | INDF daily prices |
 | `Jakarta Stock Exchange Composite Index Historical Data.csv` | Market index |
+| `DATA.md` | Provenance, format and licensing of the four CSV files |
+| `LICENSE` | MIT, covering the code only |
 
 `simulation_results.json` is **not** committed — the notebook writes it on the first
 full run (see below).
+
+**Quick reference:** code is MIT (`LICENSE`); the four price CSVs are third-party data
+and are *not* covered by that licence (`DATA.md`).
 
 ## Reproducing the paper
 
@@ -43,6 +48,11 @@ Seeds are fixed (`SEED = 20260825`) and drawn per replication via
 `numpy.random.SeedSequence.spawn`, so results are identical regardless of how many
 cores are used. The full run takes several hours; set `TEST_MODE = True` first to
 verify the environment in about a minute.
+
+> **Do not leave `DATA_DIR = None`.** The notebook then falls back to
+> `make_synthetic_panel()` and will happily produce a complete `backtest_summary.csv`
+> from *simulated* returns. It prints a warning, but it does not stop. Check that the
+> printed observation counts match the figures in `DATA.md` before trusting Table 3.
 
 To rebuild only the figures from an existing run, without redoing any simulation:
 
@@ -97,9 +107,17 @@ the notebook with `Run All` and ignore its output.
 
 ## Data
 
-Daily price series were downloaded from Investing.com. Please check their terms of
-use before redistributing these files; if redistribution is not permitted, replace
-them with a download script and keep only the derived return series.
+Daily price series were downloaded from Investing.com. See `DATA.md` for coverage,
+file format, the observation counts that identify this snapshot, and the terms under
+which the files may be redistributed.
+
+## Licence
+
+The code — `bootstrap_qr_fixed.ipynb`, `regenerate_figures.py`, and the derived
+outputs written to `output/` — is released under the MIT licence, see `LICENSE`.
+
+The four price CSV files are third-party data and are **not** covered by that licence;
+see `DATA.md`.
 
 ## References
 
